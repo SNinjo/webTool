@@ -5,4 +5,4 @@ I hope that programs can help someone to solve the problems.<br>
 <h3> CText </h3>
 This can calculate the word count of article in detail.<br>
 <br>
-<h4> By SNinjo  2021/ 1/ 9
+<p> By SNinjo  2021/ 1/ 9 </p>
