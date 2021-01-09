@@ -1,0 +1,37 @@
+<head>
+    <title> Article Editer </title>
+    <link rel="stylesheet" type="text/css" href="CText.css">
+    <script src="../jquery-3.4.1.min.js"></script>
+    <script src="CText.js"></script>
+</head>
+<body>
+    <header>
+        <h3 id="headerText"> &nbsp;&nbsp; Editer for Article </h3>
+    </header>
+
+    <table id="editionType"><tbody><tr>
+        <td valign="top">
+            <textarea id="article"></textarea>
+
+            <table id="counter"><tbody>
+                <tr>
+                    <td><p> 中文 </p></td>
+                    <td><p> 英文 </p></td>
+                    <td><p> 數字 </p></td>
+                    <td><p> 空白符 </p></td>
+                    <td><p> 標點符號 </p></td>
+                </tr>
+                <tr>
+                    <td><input id="chineseCounter" class="counterBox" type="text" value="0" readonly></td>
+                    <td><input id="englishCounter" class="counterBox" type="text" value="0" readonly></td>
+                    <td><input id="numberCounter" class="counterBox" type="text" value="0" readonly></td>
+                    <td><input id="spaceCounter" class="counterBox" type="text" value="0" readonly></td>
+                    <td><input id="punctuationCounter" class="counterBox" type="text" value="0" readonly></td>
+                </tr>
+            </tbody></table>
+        </td>
+        <td valign="top">
+            <input type="button" value="test">
+        </td>
+    </tr></tbody></table>
+</body>
