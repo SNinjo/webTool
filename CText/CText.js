@@ -3,9 +3,8 @@ $(document).ready(function() {
     $("#article").on('change keyup paste', function() {
         countText();
     });
-
     
-    console.log(("An Apple 0 0a h0 09 day.".match(/0|9/g) || []));
+    console.log("ab".match(/`|~|!|@|#|%|\^|&|\*|(|)/g));
 })
 
 
@@ -21,7 +20,11 @@ function countText(){
     $("#numberCounter").val( count(article, /[0-9]/g) );
     article = article.replace(/[0-9]/g, "");
 
-    
+    var allPunctuation = new RegExp(/`|~|!|@|#|%|\^|&|\*|\(|\)|_|\+|-|=|[|]|{|}|\|||;|:|'|"|,|.|\/|<|>|\?|，|、|。|！|：|；|「|」|『|』|【|】/g);
+    $("#punctuationCounter").val( count(article, allPunctuation) );
+    article = article.replace(allPunctuation, " ");
+
+    console.log(article);
 }
 
 function count(string, regex){
