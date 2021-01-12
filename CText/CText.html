@@ -1,37 +1,34 @@
 <head>
-    <title> Article Editer </title>
+    <title> Ctext </title>
     <link rel="stylesheet" type="text/css" href="CText.css">
     <script src="../jquery-3.4.1.min.js"></script>
     <script src="CText.js"></script>
 </head>
 <body>
     <header>
-        <h3 id="headerText"> &nbsp;&nbsp; Editer for Article </h3>
+        <h3 id="headerText"> &nbsp;&nbsp; Counter for Text </h3>
     </header>
 
-    <table id="editionType"><tbody><tr>
-        <td valign="top">
-            <textarea id="article"></textarea>
+    <section id="editionType" valign="top">
+        <textarea id="article"></textarea>
 
-            <table id="counter"><tbody>
-                <tr>
-                    <td><p> 中文 </p></td>
-                    <td><p> 英文 </p></td>
-                    <td><p> 數字 </p></td>
-                    <td><p> 空白符 </p></td>
-                    <td><p> 標點符號 </p></td>
-                </tr>
-                <tr>
-                    <td><input id="chineseCounter" class="counterBox" type="text" value="0" readonly></td>
-                    <td><input id="englishCounter" class="counterBox" type="text" value="0" readonly></td>
-                    <td><input id="numberCounter" class="counterBox" type="text" value="0" readonly></td>
-                    <td><input id="spaceCounter" class="counterBox" type="text" value="0" readonly></td>
-                    <td><input id="punctuationCounter" class="counterBox" type="text" value="0" readonly></td>
-                </tr>
-            </tbody></table>
-        </td>
-        <td valign="top">
-            <input type="button" value="test">
-        </td>
-    </tr></tbody></table>
+        <table id="counter"><tbody>
+            <tr id="tr01Counter">
+                <td><p id="chineseTitle"> 中文 </p></td>
+                <td><p id="englishTitle"> 英文 </p></td>
+                <td><p id="numberTitle"> 數字 </p></td>
+                <td><p id="spaceTitle"> 空白符 </p></td>
+                <td><p id="punctuationTitle"> 標點符號 </p></td>
+            </tr>
+            <tr id="tr02Counter">
+                <td><input id="chineseCounter" class="counterBox" type="text" value="0" readonly></td>
+                <td><input id="englishCounter" class="counterBox" type="text" value="0" readonly></td>
+                <td><input id="numberCounter" class="counterBox" type="text" value="0" readonly></td>
+                <td><input id="spaceCounter" class="counterBox" type="text" value="0" readonly></td>
+                <td><input id="punctuationCounter" class="counterBox" type="text" value="0" readonly></td>
+            </tr>
+        </tbody></table>
+
+        <p id="bubble"></p>
+    </section>
 </body>

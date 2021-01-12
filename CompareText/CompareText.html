@@ -1,0 +1,36 @@
+<head>
+    <title> Comparetext </title>
+    <link rel="stylesheet" type="text/css" href="CompareText.css">
+    <script src="../jquery-3.4.1.min.js"></script>
+    <script src="CompareText.js"></script>
+</head>
+<body>
+    <header>
+        <h3 id="headerText"> &nbsp;&nbsp; Compare for Texts </h3>
+    </header>
+
+    <section id="editionType" valign="top">
+        <table id="comparator" align="center"><tbody>
+            <tr>
+                <td><textarea id="articleLineNumber01" readonly> 0 </textarea></td>
+                <td><textarea id="article01" cols = "1" wrap="hard"></textarea></td>
+                <td class="space"></td>
+                <td><textarea id="articleLineNumber02" readonly> 0 </textarea></td>
+                <td><textarea id="article02"></textarea></td>
+            </tr>
+        </tbody></table>
+    </section>
+    <section id="editionType_result">
+        <div class="space"></div>
+        <p id="compareResult"> 請輸入要比較的文章 </p>
+        <table id="result" align="center"><tbody>
+            <tr>
+                <td><textarea id="resultLineNumber01" readonly> 0 </textarea></td>
+                <td><textarea id="result01" readonly></textarea></td>
+                <td class="space"></td>
+                <td><textarea id="resultLineNumber02" readonly> 0 </textarea></td>
+                <td><textarea id="result02" readonly></textarea></td>
+            </tr>
+        </tbody></table>
+    </section>
+</body>

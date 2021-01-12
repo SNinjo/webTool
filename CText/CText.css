@@ -20,19 +20,45 @@ header {
 }
 
 #editionType {
-    width: 60%;
-    height: 80%;
+    width: 65%;
+    height: 88%;
     margin: 20px auto;
     background-color: #FEB799;
+    border-radius: 10px;
 }
 #article {
-    width: 100%;
-    height: 80%;
-    resize: vertical;
+    margin: 4% 3%;
+    width: 93.5%;
+    height: 70%;
+    resize: none;
 }
 
+#counter {
+    width: 94%;
+    margin: 0 auto;
+    color: #4A200A;
+    text-align: center;
+    font-weight: 800;
+
+    /* 使 tr td 之間沒有間隔 */
+    border-spacing: 0;
+}
 .counterBox {
     width: 100%;
+    text-align: right;
+}
+#tr01Counter td {
+    margin: 0 0;
+}
+#tr02Counter td {
+    margin: 0 0;
+}
+
+#bubble {
+    margin: 1% 0;
+    text-align: center;
+    font-weight: 600;
+    color: #7A4018;
 }
 
 
