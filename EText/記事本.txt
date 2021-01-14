@@ -1,0 +1,4 @@
+跨 div 選取內容
+文字游標記住位置 - inner span
+
+paragraph -> line

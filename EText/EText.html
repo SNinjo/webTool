@@ -1,0 +1,19 @@
+<head>
+    <title> Etext </title>
+    <link rel="stylesheet" type="text/css" href="Etext.css">
+    <script src="../jquery-3.4.1.min.js"></script>
+    <script src="Etext.js"></script>
+</head>
+<body>
+    <header>
+        <h3 id="headerText"> &nbsp;&nbsp; Editor for Text </h3>
+    </header>
+
+    <section id="editionType" valign="top">
+        <div id="paragraph1" class="article" contenteditable="true" onkeydown="setKeyEvent(event)">123</div>
+        <div id="paragraph2" class="article" contenteditable="true" onkeydown="setKeyEvent(event)">123456</div>
+        <div id="paragraph3" class="article" contenteditable="true" onkeydown="setKeyEvent(event)">123<span id="tt">910</span>78</div>
+        <div id="paragraph4" class="article" contenteditable="true" onkeydown="setKeyEvent(event)">1234567</div>
+    </section>
+    <div id="counter" class="article"></div>
+</body>
