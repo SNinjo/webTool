@@ -10,10 +10,19 @@
     </header>
 
     <section id="editionType" valign="top">
-        <div id="paragraph1" class="article" contenteditable="true" onkeydown="setKeyEvent(event)">123</div>
-        <div id="paragraph2" class="article" contenteditable="true" onkeydown="setKeyEvent(event)">123456</div>
-        <div id="paragraph3" class="article" contenteditable="true" onkeydown="setKeyEvent(event)">123<span id="tt">910</span>78</div>
-        <div id="paragraph4" class="article" contenteditable="true" onkeydown="setKeyEvent(event)">1234567</div>
+        <div class="space"></div>
+        <div id="counter"></div>
+        <div id="article" contenteditable="true" onkeydown="setKeyDown(event)" onkeyup="setKeyUp(event)"></div>
+            <div id="Paragraph_1">
+                <div id="Line_1">123</div>
+                <div id="Line_2"><br></div>
+                <div id="Line_3">456789</div>
+                <div id="Line_4">456123</div>
+                <div id="Line_5"><br></div>
+            </div>
+        </div>
     </section>
-    <div id="counter"></div>
+    <aside>
+
+    </aside>
 </body>

@@ -21,7 +21,7 @@ header {
 
 #editionType {
     width: 1000px;
-    height: 600px;
+    height: 90%;
     margin: 20px auto;
     background-color: #FEB799;
     border-radius: 10px;
@@ -29,19 +29,19 @@ header {
 #counter {
     display: none;
 }
-.article {
+#article {
     margin: 0 auto;
-    width: 93.5%;
-    height: 22px;
-}
-.article:focus {
+    width: 93%;
+    /* calc() 用於計算 */
+    height: calc(100% - 60px);
+
     /* 消除 input、textarea 在 focus 時產生的外框 */
     outline: none;
 }
 
-
-#tt {
-    color: red;
+.space {
+    width: 30px;
+    height: 30px;
 }
 
 .appearBorder {

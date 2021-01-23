@@ -1,174 +1,169 @@
 $(document).ready(function() {
 
-    /*console.log(getTextPx("45613544561354456135445613544561354456135445613544561354456135445613544561354456135445613544561354456135445613544561"))
-    createNewDiv($("#paragraph1"))
-    $("#paragraph2").text("5567");
-
-    console.log($("#paragraph4")[0].childNodes[1])
-    tt($("#paragraph4")[0].childNodes[1].childNodes[0], 1);*/
-
-    //console.log(getTextElement($("#editionType")[0], 6))
-    //console.log(getTextElement($("#paragraph4")[0], 2))
-
-    //console.log(getTextElement( $("#paragraph4")[0], 1))
 
 })
 
 
-var lastKey = "";
-var vOffset;// 記住上下移動的位置
-function setKeyEvent(e){
-    var focusId = e.srcElement.id;
-    var nextParagraph;
+// 觸發時間軸:  keydown -> 按鍵 Input (keypress) -> keyup
+// In theory, the onKeyDown and onKeyUp events represent keys being pressed or released, while the onKeyPress event represents a character being typed. The implementation of the theory is not same in all browsers.
+function setKeyDown(e){
+    // preventDefault() 必須在 keyDown 阻止
+    //console.log(window.getSelection())//
+    //console.log(window.getSelection().getRangeAt(0))
 
-    // 文字游標跨 div 選取
-    if (e.key === "ArrowUp"){
-        // Prevent default behavior in text input while pressing arrow up
+    //e.preventDefault();//
+
+    if (e.key === "Enter"){
         e.preventDefault();
 
-        if ((lastKey != "ArrowUp") && (lastKey != "ArrowDown")) {
-            vOffset = getCursor();
-        }
+        createLine(getLineNumber(), getTextAfterCursor());
+    }
+    else if (e.key === "Backspace"){
+        var sel = window.getSelection();
+        var range = sel.getRangeAt(0);
 
-        var nextParagraph = $("#paragraph" + ( getParagraphId(focusId) - 1 ));
-        if (nextParagraph[0] != null) {
-            setCursor(nextParagraph[0], vOffset);
+        // 跨行刪除
+        if (range.startContainer != range.endContainer){
+            var intStartNumber = getLineNumber(range.startContainer);
+            var intEndNumber = getLineNumber(range.endContainer);
+            updateLineNumber(intEndNumber + 1, (intStartNumber - intEndNumber));
+        }
+        // 同行同點且第 0 格刪除
+        else if ((sel.focusOffset == 0) && (range.startOffset == range.endOffset)){
+            e.preventDefault();
+
+            deleteLine(focusLineNumber);
         }
     }
-    else if (e.key === "ArrowDown"){
-        e.preventDefault();
-        
-        if ((lastKey != "ArrowUp") && (lastKey != "ArrowDown")) {
-            vOffset = getCursor();
-        }
 
-        var nextParagraph = $("#paragraph" + ( getParagraphId(focusId) + 1 ));
-        if (nextParagraph[0] != null) {
-            setCursor(nextParagraph[0], vOffset);
-        }
-    }
-    // div 不能換行
-    else if (e.key === "Enter"){
-        e.preventDefault();
-    }
-
-    lastKey = e.key;
 }
 
-// 取得相對於 paragraph 的完整 offset
-function getCursor(){
-    var offset = window.getSelection().focusOffset;
-    var objFocused = window.getSelection().focusNode;
-    var objParent = objFocused.parentNode;
+function setKeyUp(e){
 
-    while (true){
-        // forEach 沒有 break 可以使用， return 也只能中斷此次不能跳出
-        var boolIsBreak = false;
-        objParent.childNodes.forEach(element => {
-            if ((boolIsBreak) || (element == objFocused)) {
-                boolIsBreak = true;
-                return;
-            }
+    // 判斷是否要換行 (Max = 1000 * 93%)
+    if (getTextPx(window.getSelection().focusNode.textContent) > 930) {
+        setCursor("Line_" + getLineNumber(), 0, getMaxTextCount());
+        console.log(getMaxTextCount())//
 
-            offset += element.textContent.length;
-        })
-
-        if (objParent.id.indexOf("paragraph") != -1) break;
-        else if (objParent == document) return null;
-
-        objFocused = objParent;
-        objParent = objFocused.parentNode;
+        createLine(getLineNumber(), getTextAfterCursor(), "last");
     }
 
-    return offset;
 }
-
-function setCursor(el, offset) {
-    // In most browsers, you need the Range and Selection objects. You specify each of the selection boundaries as a node and an offset within that node.
-    // to set the caret(cursor) to the [offset] character of the [n] line of text
-    // range.setStart(el.childNodes[n], offset)
-
-    var range = document.createRange();
-    var sel = window.getSelection();
-    
-    // 計算是第幾個 child 的多少 offset
-    var currentOffset = 0, ithChild = 0;
-    var textChild, textTarget;
-    while (textChild = getTextElement(el, ++ithChild)){
-        textTarget = textChild;
-        currentOffset += textChild.length;
-
-        if (currentOffset >= offset) {
-            offset -= currentOffset - textChild.length;
-            break;
-        }
-    }
-    if (currentOffset < offset) offset = textTarget.length;
-    else if (offset < 0) offset = 0;
-
-    range.setStart(textTarget, offset);
-    range.collapse(true);
-    
-    sel.removeAllRanges();
-    sel.addRange(range);
-}
-
-// 從樹狀節點找尋下一個 text
-var currentNumber = 0;
-function getTextElement(localRoot, number) {
-    currentNumber = 0;
-    return getTextFromTree(localRoot, number);
-}
-function getTextFromTree(localRoot, number){
-    // 判斷是否為 text
-    if (localRoot.nodeType == 3) {
-        // 去除僅有換行符的 text(排版用)
-        if (localRoot.textContent.indexOf("\n") != -1) return;
-        currentNumber++;
-    }
-    // 若 div 沒有 text，在符合條件下則回傳該 div
-    else if (localRoot.nodeType == 1){
-        if ((localRoot.childNodes.length == 0) && (currentNumber + 1 == number)){
-            currentNumber++;
-            return localRoot;
-        }
-    }
-
-    if (currentNumber == number) return localRoot;
-    for (var index = 0; index < localRoot.childNodes.length; index++){
-        var result = getTextFromTree(localRoot.childNodes[index], number);
-        if (result != null) return result;
-    }
-
-    //超出範圍
-    return null;
-}
-
 
 function getTextPx(text){
     return $("#counter").text(text).width();
 }
 
+function getMaxTextCount(){
+    var text = window.getSelection().focusNode.textContent;
+    var textSlice = text;
+    var targetLength = text.length;
 
-function getParagraphId(Id){
-    return parseInt(Id.substring(Id.indexOf("h") + 1));
+    while (getTextPx(textSlice) > 930){
+        targetLength--;
+        textSlice = textSlice.substring(0, targetLength);
+    }
+    return targetLength;
 }
 
+function getLineNumber(objFocusLine){
+    if (objFocusLine == null) objFocusLine = window.getSelection().focusNode;
 
-function createNewDiv(element){
-    console.log(element[0].id);//
-    var newNumber = getParagraphId(element[0].id) + 1;
+    while (getNumberFromId(objFocusLine.id) == null){
+        objFocusLine = objFocusLine.parentNode;
 
-    // update the paragraph number
-    var updateNumber = newNumber;
-    var updateElement = $("#paragraph" + updateNumber);
-    var nextElement = $("#paragraph" + ( updateNumber + 1 ));
+        if (objFocusLine == document) return null;
+    }
+    return getNumberFromId(objFocusLine.id);
+}
+
+function getNumberFromId(Id){
+    if (Id == null) return null;
+    var index = Id.indexOf("_");
+    if (index == -1) return null;
+    return parseInt(Id.substring(index + 1));
+}
+
+function createParagraph(lineNumber, paragraphNumber, text){
+    $("#paragraph_" + paragraphNumber).after('<div id="paragraph_' + paragraphNumber + '"></div>');
+    createLine()
+}
+
+// number 行數、 text 換行新增文字、 offset 游標位置
+function createLine(number, text, offset){
+    // new line or empty line have to add <br>
+    if ((text == null) || (text == "")) text = "<br>";
+    // 刪除要換行的文字
+    else {
+        var originalText = $("#Line_" + number).text();
+        $("#Line_" + number).text( originalText.substring(0, originalText.length - text.length) );
+        if (originalText.length == text.length) $("#Line_" + number).html("<br>");
+    }
+    var newNumber = number + 1;
+
+    updateLineNumber(newNumber, 1);
+    $("#Line_" + number).after('<div id="Line_' + newNumber + '">' + text + '</div>');
+
+    if (offset == null) offset = 0;
+    else if (offset == "last") offset = text.length;
+    setCursor("Line_" + newNumber, 0, offset);
+}
+
+function deleteLine(number){
+    if (number == 1) return;
+
+    var lastLineText = $("#Line_" + (number - 1)).text();
+    var thisLineText = $("#Line_" + number).text();
+    var lastTextLength = lastLineText.length;
+
+    $("#Line_" + (number - 1)).text(lastLineText + thisLineText);
+    // empty line have to add <br>
+    // $.text("") 也會清除包含在內的元素節點
+    if ((lastLineText == "") && (thisLineText == "")) $("#Line_" + (number - 1)).html("<br>");
+
+    $("#Line_" + number).remove();
+    updateLineNumber(number + 1, -1);
+    setCursor("Line_" + (number - 1), 0, lastTextLength);
+}
+
+// 將 intStartNumber 行(包含)以後的 line number 加上 intDelta
+function updateLineNumber(intStartNumber, intDelta){
+    var updateNumber = intStartNumber;
+    var updateElement = $("#Line_" + updateNumber);
+    var nextElement = $("#Line_" + ( updateNumber + 1 ));
+
     while (updateElement.length != 0){
-        updateElement.attr("id", "paragraph" + ( updateNumber + 1 ));
+        updateElement.attr("id", "Line_" + ( updateNumber + intDelta ));
 
         updateNumber++;
         updateElement = nextElement;
-        nextElement = $("#paragraph" + ( updateNumber + 1 ));
+        nextElement = $("#Line_" + ( updateNumber + 1 ));
     }
-    element.after('<div id="paragraph' + newNumber + '" class="article" contenteditable="true" onkeydown="setKeyEvent(event)"></div>');
+}
+
+function setCursor(Id, n, offset){
+    // 此為將游標設置在第 n個元素節點的第 offset格位置
+    var el = $("#" + Id)[0].childNodes[n];
+    var range = document.createRange();
+    var sel = window.getSelection();
+
+    if (offset == "last") offset = el.textContent.length;
+    
+    // setStart() 要設定在 #text
+    range.setStart(el, offset);
+    range.collapse(true)
+    
+    sel.removeAllRanges();
+    sel.addRange(range);
+}
+
+function getTextAfterCursor(){
+    var selected = window.getSelection();
+    var offset = selected.focusOffset;
+    var text = selected.focusNode.textContent;
+    var length = text.length;
+    if (length == null) index = 0;
+
+    if (offset == length) return "";
+    else return text.substring(offset, length);
 }
