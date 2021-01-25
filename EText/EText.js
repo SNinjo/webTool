@@ -1,6 +1,5 @@
 $(document).ready(function() {
 
-
 })
 
 
@@ -8,15 +7,13 @@ $(document).ready(function() {
 // In theory, the onKeyDown and onKeyUp events represent keys being pressed or released, while the onKeyPress event represents a character being typed. The implementation of the theory is not same in all browsers.
 function setKeyDown(e){
     // preventDefault() 必須在 keyDown 阻止
-    //console.log(window.getSelection())//
-    //console.log(window.getSelection().getRangeAt(0))
-
-    //e.preventDefault();//
 
     if (e.key === "Enter"){
         e.preventDefault();
 
-        createLine(getLineNumber(), getTextAfterCursor());
+        //createLine(getLineNumber(), getTextAfterCursor());
+
+        createParagraph(getNumber("Line"), getNumber("Paragraph"));
     }
     else if (e.key === "Backspace"){
         var sel = window.getSelection();
@@ -66,27 +63,36 @@ function getMaxTextCount(){
     return targetLength;
 }
 
-function getLineNumber(objFocusLine){
-    if (objFocusLine == null) objFocusLine = window.getSelection().focusNode;
+function getNumber(target, objFocus){
+    if (objFocus == null) objFocus = window.getSelection().focusNode;
 
-    while (getNumberFromId(objFocusLine.id) == null){
-        objFocusLine = objFocusLine.parentNode;
+    while (getNumberFromId(target, objFocus.id) == null){
+        objFocus = objFocus.parentNode;
 
-        if (objFocusLine == document) return null;
+        if (objFocus == document) return null;
     }
-    return getNumberFromId(objFocusLine.id);
+    return getNumberFromId(target, objFocus.id);
 }
 
-function getNumberFromId(Id){
+function getNumberFromId(target, Id){
     if (Id == null) return null;
-    var index = Id.indexOf("_");
-    if (index == -1) return null;
-    return parseInt(Id.substring(index + 1));
+    if (Id.indexOf(target + "_") != -1){
+        return parseInt( Id.substring(Id.indexOf("_") + 1) );
+    }
+    else return null;
 }
 
-function createParagraph(lineNumber, paragraphNumber, text){
-    $("#paragraph_" + paragraphNumber).after('<div id="paragraph_' + paragraphNumber + '"></div>');
-    createLine()
+function createParagraph(lineNumber, paragraphNumber){
+    var newLineNumber = lineNumber + 1;
+    var newParagraphNumber = paragraphNumber + 1;
+    updateLineNumber(newLineNumber, 1);
+    $("#Paragraph_" + paragraphNumber).after('<div id="Paragraph_' + newParagraphNumber + '"><div id="Line_' + newLineNumber +'"></div></div>');
+
+    getLineNumbers(newLineNumber + 1, true).forEach(moveLineNumber => {
+        var moveLine = $("#Line_" + moveLineNumber)[0];
+        $("#Line_" + moveLineNumber).remove();
+        $("#Paragraph_" + newParagraphNumber).append(moveLine);
+    })
 }
 
 // number 行數、 text 換行新增文字、 offset 游標位置
@@ -128,17 +134,33 @@ function deleteLine(number){
 
 // 將 intStartNumber 行(包含)以後的 line number 加上 intDelta
 function updateLineNumber(intStartNumber, intDelta){
+    var arrayLines = getLineNumbers(intStartNumber);
+    if (intDelta > 0) arrayLines = arrayLines.reverse();
+
+    arrayLines.forEach(lineNumber => {
+        $("#Line_" + lineNumber).attr("id", "Line_" + ( lineNumber + intDelta ));
+    })
+}
+
+// 獲取 intStartNumber 行(包含)以後所有 lineNumber，可選擇是否同 paragraph
+function getLineNumbers(intStartNumber, IsSameParagraph){
+    if (IsSameParagraph == null) IsSameParagraph = false;
+
+    var arrayLines = [];
     var updateNumber = intStartNumber;
     var updateElement = $("#Line_" + updateNumber);
+    var objParagraph = updateElement[0].parentNode;
     var nextElement = $("#Line_" + ( updateNumber + 1 ));
 
     while (updateElement.length != 0){
-        updateElement.attr("id", "Line_" + ( updateNumber + intDelta ));
+        if ((IsSameParagraph) && (updateElement[0].parentNode != objParagraph)) break;
+        arrayLines.push(updateNumber);
 
         updateNumber++;
         updateElement = nextElement;
         nextElement = $("#Line_" + ( updateNumber + 1 ));
     }
+    return arrayLines;
 }
 
 function setCursor(Id, n, offset){

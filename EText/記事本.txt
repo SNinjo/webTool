@@ -1,6 +1,7 @@
 Ing:
     paragraph
     滿行情況下，下一行第 0 格 offset 按 delete
+    paragraph 的 text 要怎麼分配給 line
 
 
 Bug: 
