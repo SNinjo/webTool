@@ -3,7 +3,7 @@ body {
     margin: 0;
     padding: 0;
 
-    background-color: rgba(0, 0, 0, 0.733);
+    background-color: #F28D02;
 }
 
 header {
@@ -18,12 +18,25 @@ header {
 #headerText {
     color: white;
 }
+#btnControl {
+    position: absolute;
+    right: 10px;
+}
 
-.Snake {
+#range {
+    /* static 以外才能讓子元素定位 */
+    position: relative;
+}
+.snake {
     width: 100px;
     height: 100px;
-    background-color: red;
-    position: relative;
+    background-color: #E82302;
+    position: absolute;
+}
+#apple {
+    width: 80px;
+    height: 80px;
+    position: absolute;
 }
 
 
