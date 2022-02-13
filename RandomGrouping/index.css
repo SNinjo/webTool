@@ -1,0 +1,184 @@
+body {
+    margin: 0;
+    height: 99%;
+
+    background-color: #252525;
+    color: white;
+    
+    font-family: sans-serif;
+}
+
+
+header {
+    position: relative;
+    margin: 0 0 15px 0;
+    height: 8%;
+
+    background-color: #5fa4ff;
+
+    display: flex;
+    align-items: center;
+}
+header h3 {
+    margin: 0 auto;
+
+    font-weight: 900;
+}
+#btnTutorial {
+    position: absolute;
+    right: 20px;
+    height: 100%;
+
+    background-color: #5fa4ff;
+    color: white;
+
+    border: none;
+    border-bottom: solid 1px #FFFFFF;
+
+    font-weight: bold;
+}
+#btnTutorial:active {
+    color: #d9e9ff;
+}
+#btnTutorial:hover {
+    background-color: #81b7ff;
+
+    cursor: pointer;
+}
+
+
+#figureListInputDevice {
+    height: 10%;
+}
+#figureListInputContainer {
+    margin: 0 auto;
+    width: 870px;
+}
+#figureListInputText {
+    margin: 0 auto;
+    width: 600px;
+    height: 100%;
+
+    background-color: #252525;
+    color: white;
+
+    resize: none;
+
+    /* 讓捲軸有鼠標顯示 */
+    cursor: auto;
+}
+#figureListInputText::-webkit-scrollbar {
+    width: 1em;
+}
+#figureListInputText::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px #252525;
+}
+#figureListInputText::-webkit-scrollbar-thumb {
+    background-color: white;
+    border: 1px solid slategrey;
+}
+#figureListInputText::-webkit-scrollbar-button:hover {
+    background-color: blue;
+}
+
+#figureListInputButtonList {
+    position: relative;
+    width: 250px;
+    height: 100%;
+    
+    float: right;
+}
+.btnFigureListInput {
+    margin: 0 5px;
+    width: 100px;
+    height: 100%;
+
+    background-color: #252525;
+    color: white;
+
+    border: none;
+    border-bottom: solid 1px #5fa4ff;
+}
+.btnFigureListInput:active {
+    color: #bdbdbd;
+}
+.btnFigureListInput:hover {
+    background-color: #414141;
+
+    cursor: pointer;
+}
+
+
+#figureListSelector {
+    padding: 5px 10px;
+    height: calc(20% - 10px);
+
+    background-color: #2e2e2e;
+
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+
+#main {
+    height: 40%;
+}
+.team {
+    width: 50%;
+    height: 100%;
+
+    float: left;
+
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+
+#buttonList {
+    height: 5%;
+
+    background-color: #2e2e2e;
+
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+.button {
+    padding: 0 15%;
+    height: 100%;
+
+    background-color: #2e2e2e;
+    color: white;
+    
+    float: left;
+
+    border: none;
+    border-bottom: solid 1px #5fa4ff;
+}
+.button:active {
+    color: #bdbdbd;
+}
+.button:hover {
+    background-color: #414141;
+
+    cursor: pointer;
+}
+
+
+#systemHint {
+    height: 10%;
+
+    color: #bebebe;
+
+    font-weight: 100;
+    text-align: center;
+}
+#copyright {
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+
+    color: #5fa4ff;
+}

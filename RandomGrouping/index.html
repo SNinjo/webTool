@@ -1,0 +1,44 @@
+<head>
+    <meta charset="utf-8">
+    <title> Random Grouping </title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script src="Object/Team.js"></script>
+    <script src="FigureList.js"></script>
+    <script src="index.js"></script>
+</head>
+<body>
+    <header>
+        <h3> Random Grouping (for LOL) </h3>
+        <input id="btnTutorial" type="button" value="Tutorial" onclick="gotoTutorialPage()">
+    </header>
+
+    <section id="figureListInputDevice">
+        <div id="figureListInputContainer">
+            <textarea id="figureListInputText"></textarea>
+            <div id="figureListInputButtonList">
+                <input class="btnFigureListInput" type="button" value="Send list" onclick="sendFigureListByText()">
+                <input class="btnFigureListInput" type="button" value="Paste list" onclick="pasteFigureListByString()">
+            </div>
+        </div>
+    </section>
+
+    <section id="figureListSelector">
+    </section>
+    
+    <section id="main">
+        <aside id="redTeam" class="team">
+        </aside>
+        <aside id="blueTeam" class="team">
+        </aside>
+    </section>
+
+    <section id="buttonList">
+        <input class="button" type="button" value="Grouping" onclick="readomGrouping()">
+        <!-- <input class="button" type="button" value="Distributing Path"> -->
+    </section>
+
+    <section id="systemHint">
+        <p id="copyright"> made by SNinja </p>
+        <h3 id="systemHintText"></h3>
+    </section>
+</body>
