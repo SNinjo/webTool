@@ -88,7 +88,7 @@ function setDefaultFigureListInput(strFigureList) {
 
 /* event */
 function gotoTutorialPage(){
-    window.open("tutorial.html");
+    document.location.href = "tutorial.html";
 }
 
 function sendFigureListByText(){
