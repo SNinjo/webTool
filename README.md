@@ -6,6 +6,8 @@ I hope that programs can help someone to solve the problems.<br>
 This can calculate the word count of article in detail.<br>
 <h4> CompareText </h4>
 This can compare the difference of two articles.<br>
+<h4> RandomGrouping </h4>
+This can random group in LOL.<br>
 <br>
 <h3> Installation </h3>
 download the entire repository or the jquery (jquery-3.4.1.min.js) and the tool that you want, and open this tool by browser (suggest Chrome)
